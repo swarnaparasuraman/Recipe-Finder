@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Interactive Recipe Finder — Futuristic Kitchen</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="logo">🍽️ <span>NeoKitchen</span></div>
+      <div class="controls">
+        <label class="search-wrap">
+          <input id="searchInput" placeholder="Type ingredients (eg: tomato, onion, rice)" />
+          <button id="voiceBtn" title="Speak"><span class="mic">🎤</span></button>
+        </label>
+        <button id="filtersToggle" class="btn small">Filters</button>
+        <button id="darkToggle" class="btn small">🌙</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Find playful, futuristic recipes</h1>
+      <p class="subtitle">Type or speak ingredients — recipes load automatically. Save, cook, and earn XP!</p>
+      <div class="badges-row" id="badgesRow"></div>
+    </section>
+
+    <aside class="filters" id="filters">
+      <h3>Filters</h3>
+      <div class="filter-row">
+        <label>Cuisine
+          <select id="cuisineFilter">
+            <option value="">Any</option>
+            <option>Italian</option>
+            <option>Mexican</option>
+            <option>Chinese</option>
+            <option>Indian</option>
+            <option>American</option>
+          </select>
+        </label>
+        <label>Diet
+          <select id="dietFilter">
+            <option value="">Any</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="ketogenic">Keto</option>
+            <option value="gluten free">Gluten Free</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-row">
+        <label>Difficulty
+          <select id="difficultyFilter">
+            <option value="">Any</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <label>Max Time (mins)
+          <input id="maxTime" type="number" min="5" placeholder="60" />
+        </label>
+      </div>
+      <div class="filter-actions">
+        <button id="applyFilters" class="btn">Apply</button>
+        <button id="clearFilters" class="btn ghost">Clear</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="stats-row">
+        <div class="xp">XP: <span id="xpCount">0</span></div>
+        <div class="streak">Streak: <span id="streakCount">0</span> days</div>
+      </div>
+
+      <section id="gallery" class="gallery"></section>
+      <div id="emptyState" class="empty">No recipes yet — try search or allow the app to auto-load.</div>
+    </main>
+
+    <div id="recipeModal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose">✖</button>
+        <div id="modalInner"></div>
+      </div>
+    </div>
+
+    <canvas id="confettiCanvas" class="confetti"></canvas>
+
+    <footer class="footer">
+      <small>Built with ❤️ — Neon gradients, playful micro-interactions, and real recipe APIs.</small>
+    </footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
