@@ -1,7 +1,6 @@
 # NeoKitchen — Interactive Recipe Finder
 
-![Demo Preview](![Uploading Screenshot 2025-10-02 192816 - Copy.png…]()
-)
+![Recipe Screenshot]([image.jpg](https://1drv.ms/i/c/8d1bdde74cf55abd/EdS8QqS-cdBFi_ZJpFVm3-8B7-tXMO-hF9d6hfdtnshZqw?e=6mVbJL))
 
 **NeoKitchen** is a playful, futuristic web app for discovering recipes by typing or speaking ingredients. It’s designed as a colorful, micro-interaction-rich frontend demo suitable for student portfolios, hackathons, or as a prototype for a full recipe product.
 
@@ -208,3 +207,4 @@ Design inspired by playful neon UIs and micro-interaction patterns. Built as a f
 ---
 
 *Made with ❤️ for creative web demos — NeoKitchen Team*
+
