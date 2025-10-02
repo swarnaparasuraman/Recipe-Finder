@@ -1,87 +1,210 @@
-<img width="1887" height="931" alt="Screenshot 2025-10-02 192816 - Copy" src="https://github.com/user-attachments/assets/0682a2c5-9263-42e2-beea-dbd6053578fd" />NeoKitchen Interactive Recipe Finder
-A playful, futuristic web app for discovering recipes by searching or speaking ingredients. Features colorful UI, gamified XP, and live integrations with real recipe APIs for an engaging cooking experience.
+# NeoKitchen — Interactive Recipe Finder
 
-Demo Previewjpg
-![Screenshot of NeoKitchen](![Uploading Screenshot 2025-10-02 192816 - Copy.png…]
+![Demo Preview](![Uploading Screenshot 2025-10-02 192816 - Copy.png…]()
+)
 
+**NeoKitchen** is a playful, futuristic web app for discovering recipes by typing or speaking ingredients. It’s designed as a colorful, micro-interaction-rich frontend demo suitable for student portfolios, hackathons, or as a prototype for a full recipe product.
 
+---
 
-Features
-Search recipes by typing or speaking ingredients (Web Speech API).
+## 🚀 Highlights
 
-Dynamic recipe gallery with glowing hover effects and quick save option.
+* Search recipes by typing or speaking ingredients (Web Speech API).
+* Dynamic recipe gallery with glowing hover effects and quick-save option.
+* Detailed recipe modal with checklist, step-by-step instructions, and cooking overlay.
+* Gamified UX: XP, streaks, confetti animations, and collectible badges.
+* Powerful filters: cuisine, diet, difficulty, and maximum prep time.
+* Neon styling, floating shapes, glassmorphism cards, and dark mode toggle.
+* Offline demo mode using mock recipe data — open in a browser or run locally.
 
-Detailed modal with checklist, step-by-step instructions, and cooking overlay.
+---
 
-Gamified XP, streaks, confetti animations for saving and cooking.
+## 🧩 Features
 
-Multiple filter options (cuisine, diet, difficulty, time).
+* **Ingredient search (text & voice)** using the Web Speech API.
+* **Dynamic gallery**: responsive grid, animated hover glow, quick-save.
+* **Recipe modal**: ingredient checklist, step timers, and progress overlay.
+* **Gamification**: XP points, streak tracking, and badges (`Quick Cook`, `Master Chef`, `Vegan Friend`).
+* **Filtering** by cuisine, diet, difficulty, and time.
+* **Offline-first demo** with mock JSON data; live API integration available.
+* **Accessibility & UX**: keyboard navigation, ARIA-friendly modal, and contrast-aware dark mode.
 
-Badges for "Quick Cook," "Master Chef," and "Vegan Friend."
+---
 
-Attractive neon styling, floating shapes, and dark mode toggle for enhanced UX.
+## 🛠️ Tech Stack
 
-Offline demo with mock recipe data—just open in a browser or run locally.
+* **HTML5** + semantic markup
+* **CSS3** (Neon gradients, glassmorphism, responsive grid)
+* **JavaScript (ES6+)**: dynamic rendering, localStorage, fetch
+* **Web APIs**: Web Speech API, Notification API (optional), Clipboard API
+* **Optional**: Python `http.server` for local static serving
 
-Technologies Used
-HTML, CSS (Neon gradients, glass effect cards, responsive grid).
+---
 
-JavaScript (ES6, Web Speech API, localStorage, fetch, dynamic rendering).
+## 📁 Repository Structure
 
-Recipe API integrations:
+```
+neo-kitchen/
+├─ assets/
+│  ├─ images/
+│  └─ styles/
+├─ data/
+│  └─ mock-recipes.json
+├─ src/
+│  ├─ index.html
+│  ├─ styles.css
+│  ├─ app.js
+│  └─ config.js
+├─ scripts/
+│  └─ download-images.ps1
+└─ README.md
+```
 
-Spoonacular (complexSearch pattern included).
+---
 
-Edamam (integration template provided).
+## 🔧 Getting Started — Run Locally
 
-Getting Started
-Run Locally
-Open index.html in your browser under any static file server.
+> You can use this project entirely offline (mock data), or enable live recipe APIs by adding keys to `config.js`.
 
-Recommended (for API features): Use Python server or similar.
+1. Clone or download the repo.
+2. (Recommended) Serve with a static server so `fetch` works correctly:
 
-bash
+```bash
+# from project root
 python -m http.server 8080 --directory .
-Add Real Recipe APIs
-For Spoonacular:
+# or using Node's http-server
+npx http-server . -p 8080
+```
 
-Set window.EDUNETCONFIG.provider = "spoonacular" and add your spoonacularKey in config.js.
+3. Open `http://localhost:8080/src/index.html` in your browser.
 
-For Edamam:
+---
 
-Set provider to "edamam", add your edamamAppId and edamamAppKey in config.js.
+## ⚙️ Configuration (API Integration)
 
-Integration steps are left as an exercise.
+`src/config.js` exposes a small config object used by `app.js` to switch between mock data and real providers.
 
-Image Assets
-Download curated images using the included PowerShell script (optional but recommended).
+```js
+// src/config.js
+window.NEOKITCHEN_CONFIG = {
+  provider: 'mock', // 'mock' | 'spoonacular' | 'edamam'
+  spoonacularKey: '', // e.g. 'YOUR_SPOONACULAR_KEY'
+  edamamAppId: '',
+  edamamAppKey: '',
+  resultsPerPage: 12
+};
+```
 
-Without running the script, SVG placeholders appear by default.
+### Spoonacular (example)
 
-Usage
-Type or speak any set of ingredients to find recipes.
+If you set `provider = 'spoonacular'`, the app expects `spoonacularKey`. Example query pattern used in the demo (in `api/spoonacular.js` or inline `app.js`):
 
-Filter by cuisine, diet, difficulty, and maximum prep time.
+```js
+// Example fetch (complexSearch style)
+const q = encodeURIComponent(ingredients.join(','));
+const url = `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=12&apiKey=${window.NEOKITCHEN_CONFIG.spoonacularKey}`;
+const res = await fetch(url);
+const data = await res.json();
+// Map Spoonacular results into the app's recipe shape
+```
 
-Click recipe cards to view details, save favorites, and begin cooking.
+> Note: Spoonacular limits requests and requires a valid API key. Do not commit your keys to public repos.
 
-Use the modal for a step-by-step cooking experience with timers.
+### Edamam (example)
 
-Earn XP and streaks for each action.
+For Edamam, set `provider = 'edamam'` and add `edamamAppId`/`edamamAppKey`. Typical integration follows their search API pattern and maps results into the app's recipe model.
 
-Next Steps & Contribution
-Fully integrate Edamam API and add backend for saved recipes.
+---
 
-Pagination, swipe gestures for mobile, and more interactive badges.
+## 🧭 App Data Model (simplified)
 
-Contributions welcome via pull requests.
+```json
+{
+  "id": "string",
+  "title": "string",
+  "image": "string",
+  "ingredients": ["string"],
+  "instructions": ["string"],
+  "prepTimeMinutes": 25,
+  "difficulty": "easy|medium|hard",
+  "diet": "vegan|vegetarian|omnivore",
+  "cuisine": "italian|indian|thai",
+  "xp": 50
+}
+```
 
-Notes
-Focused on frontend UI/UX; replace mock data with API keys in config.js to fetch live recipes.
+---
 
-Works best with colorful images and playful micro-interactions.
+## 🧪 Usage
 
-Designed for CSE students, web portfolio, or hackathon demos.
+* **Search:** Type or click the microphone and speak ingredients ("tomato, basil, garlic").
+* **Filter:** Use the filter bar to limit by cuisine, diet, difficulty, or time.
+* **Save:** Click the heart/quick-save on cards to add to `localStorage` favorites and earn XP.
+* **Cook:** Open the recipe modal and follow checklist + step timers; earning streaks and confetti when completed.
 
+---
 
+## ✅ Offline Demo & Mock Data
 
+* `data/mock-recipes.json` contains sample recipes tailored to the neon UI.
+* The app gracefully falls back to SVG placeholders when images are unavailable.
+
+---
+
+## 🎯 Next Steps / Roadmap
+
+* Fully integrate Edamam API and server-side proxy to keep keys secret.
+* Add a small backend to store user favorites, XP, and badges persistently.
+* Pagination and infinite scrolling for large result sets.
+* Mobile improvements: swipe gestures, haptics, and progressive web app support.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! A good first PR:
+
+* Implement a backend endpoint to cache API calls.
+* Add pagination or lazy-loading images.
+* Improve accessibility for the recipe modal and voice controls.
+
+Please open issues or PRs against this repo. Use feature branches and keep commits focused and atomic.
+
+---
+
+## 📸 Screenshots
+
+Include high-quality screenshots in `assets/screenshots/`:
+
+* `demo-preview.jpg` — homepage gallery
+* `recipe-modal.jpg` — expanded recipe modal
+* `cooking-overlay.jpg` — step-by-step cooking overlay
+
+---
+
+## 📜 License
+
+This project is released under the **MIT License** — see `LICENSE` for details.
+
+---
+
+## 🙋 Frequently Asked Questions
+
+**Q: How do I test voice search locally?**
+A: Run the site on `http://localhost` or `http://127.0.0.1` with a static server and allow microphone access when prompted.
+
+**Q: Where do I store API keys?**
+A: Never commit keys to a public repo. For production, use a backend proxy or environment variables on the server.
+
+**Q: I want a GitHub-ready README — can you generate one with badges?**
+A: Yes — request it and I’ll add shields for build/status, license, and browser support.
+
+---
+
+## Credits
+
+Design inspired by playful neon UIs and micro-interaction patterns. Built as a frontend prototype for CSE students, portfolios, and hackathon demos.
+
+---
+
+*Made with ❤️ for creative web demos — NeoKitchen Team*
