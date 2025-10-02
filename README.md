@@ -2,7 +2,8 @@ NeoKitchen Interactive Recipe Finder
 A playful, futuristic web app for discovering recipes by searching or speaking ingredients. Features colorful UI, gamified XP, and live integrations with real recipe APIs for an engaging cooking experience.
 
 Demo Previewjpg
-![Screenshot of NeoKitchen](C:\Users\swarn\OneDrive\Pictures\Screenshots)
+![Screenshot of NeoKitchen](C:\Users\swarn\OneDrive\Pictures\Screenshots)![Uploading Screenshot 2025-10-02 192816.png…]()
+
 
 Features
 Search recipes by typing or speaking ingredients (Web Speech API).
@@ -80,4 +81,5 @@ Focused on frontend UI/UX; replace mock data with API keys in config.js to fetch
 Works best with colorful images and playful micro-interactions.
 
 Designed for CSE students, web portfolio, or hackathon demos.
+
 
